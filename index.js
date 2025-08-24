@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 
+//Importação dos Controllers
+const clienteController = require("./controller/cliente/Cliente");
+
 //Informo que irei utilizar o EJS
 app.set('view engine', 'ejs');
 
@@ -11,15 +14,9 @@ app.get("/", function(req, res) {
     res.render('index')
   })
 
-app.get("/cliente", function(req, res) {
-    res.render('cliente/index')
-  })  
-
-app.get("/cliente/new", function(req, res) {
-    res.render('cliente/new')
-  })  
+//Uso o controller de cliente  
+app.use("/", clienteController);
   
-
 app.listen(4000, function(erro) {
   if (erro) {
     console.log("Ocorreu um erro ao iniciar o servidor")
