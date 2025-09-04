@@ -1,5 +1,17 @@
 const express = require("express");
 const app = express();
+const connection = require("./database/database");
+const Cliente = require("./database/Cliente");
+
+//Database
+connection
+    .authenticate()
+    .then (() => {
+      console.log("Conexão com o banco de dados realizado com sucesso!!!")
+    })
+    .catch((msgErro) => {
+      console.log(msgErro);
+    });
 
 //Importação dos Controllers
 const clienteController = require("./controller/cliente/Cliente");
