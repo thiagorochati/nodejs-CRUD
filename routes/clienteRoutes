@@ -1,0 +1,10 @@
+const express = require("express");
+const router = express.Router();
+const clienteController = require("../controllers/clienteController");
+
+router.get("/clientes", clienteController.index);
+router.get("/clientes/new", clienteController.new);
+router.post("/clientes", clienteController.save);
+
+module.exports = router;
+
