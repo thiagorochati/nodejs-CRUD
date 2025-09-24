@@ -2,9 +2,39 @@ const Cliente = require("../models/Cliente");
 
 // Listar todos
 exports.index = async (req, res) => {
-  
-  res.render("cliente/index");
+  const clientes = await Cliente.findAll();
+  res.render("cliente/index", { clientes });
 };
 
+// Formulário de novo cliente
+exports.new = (req, res) => {
+  res.render("cliente/new");
+};
 
+// Salvar novo
+exports.save = async (req, res) => {
+  const { nome, cpf, email } = req.body;
+  await Cliente.create({ nome, cpf, email });
+  res.redirect("/clientes");
+};
 
+// Formulário de edição
+exports.edit = async (req, res) => {
+  const cliente = await Cliente.findByPk(req.params.id);
+  res.render("cliente/edit", { cliente });
+};
+
+// Atualizar cliente
+exports.update = async (req, res) => {
+  const { nome, cpf, email } = req.body;
+  await Cliente.update({ nome, cpf, email }, {
+    where: { id: req.params.id }
+  });
+  res.redirect("/clientes");
+};
+
+// Deletar
+exports.delete = async (req, res) => {
+  await Cliente.destroy({ where: { id: req.params.id } });
+  res.redirect("/clientes");
+};

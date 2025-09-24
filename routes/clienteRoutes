@@ -3,6 +3,11 @@ const router = express.Router();
 const clienteController = require("../controllers/clienteController");
 
 router.get("/clientes", clienteController.index);
+router.get("/clientes/new", clienteController.new);
+router.post("/clientes", clienteController.save);
+router.get("/clientes/edit/:id", clienteController.edit);
+router.post("/clientes/update/:id", clienteController.update);
+router.get("/clientes/delete/:id", clienteController.delete);
 
 module.exports = router;
 
