@@ -1,0 +1,40 @@
+const Usuario = require("../models/Usuario");
+
+// Listar todos
+exports.index = async (req, res) => {
+  const usuarios = await Usuario.findAll();
+  res.render("usuario/index", { usuarios });
+};
+
+// Formulário de novo usuário
+exports.new = (req, res) => {
+  res.render("usuario/new");
+};
+
+// Salvar novo
+exports.save = async (req, res) => {
+  const { nome, email, senha } = req.body;
+  await Usuario.create({ nome, email, senha });
+  res.redirect("/usuarios");
+};
+
+// Formulário de edição
+exports.edit = async (req, res) => {
+  const usuario = await Usuario.findByPk(req.params.id);
+  res.render("usuario/edit", { usuario });
+};
+
+// Atualizar usuario
+exports.update = async (req, res) => {
+  const { nome, email, senha } = req.body;
+  await Usuario.update({ nome, email, senha }, {
+    where: { id: req.params.id }
+  });
+  res.redirect("/usuarios");
+};
+
+// Deletar
+exports.delete = async (req, res) => {
+  await Usuario.destroy({ where: { id: req.params.id } });
+  res.redirect("/usuarios");
+};

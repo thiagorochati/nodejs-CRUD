@@ -1,0 +1,34 @@
+<%- include('../partials/header.ejs') %>
+<%- include('../partials/navbar.ejs') %>
+
+<br/>
+<div class="container">
+  <h3 class="mb-4">Editar Usuário</h3>
+
+  <form method="POST" action="/usuarios/update/<%= usuario.id %>">
+    <div class="row mb-3">
+      <div class="col-12">
+        <label for="nome" class="form-label fw-bold">Nome</label>
+        <input type="text" id="nome" name="nome" class="form-control border border-2" value="<%= usuario.nome %>">
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-8">
+        <label for="email" class="form-label fw-bold">Email</label>
+        <input type="email" id="email" name="email" class="form-control border border-2" value="<%= usuario.email %>">
+      </div>
+      <div class="col-md-4">
+        <label for="senha" class="form-label fw-bold">Senha</label>
+        <input type="password" id="senha" name="senha" class="form-control border border-2" value="<%= usuario.senha %>">
+      </div>
+    </div>
+
+    <div class="d-flex gap-3">
+      <button type="submit" class="btn btn-success">Salvar Alterações</button>
+      <a href="/usuarios" class="btn btn-danger">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+<%- include('../partials/footer.ejs') %>

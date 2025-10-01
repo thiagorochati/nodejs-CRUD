@@ -2,6 +2,7 @@ const express = require("express");
 const app     = express();
 
 const clienteRoutes = require("./routes/clienteRoutes");
+const usuarioRoutes = require("./routes/usuarioRoutes");
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
@@ -14,5 +15,6 @@ app.get("/", (req, res) => {
 
 // Rotas
 app.use("/", clienteRoutes);
+app.use("/", usuarioRoutes);
 
 app.listen(4000, () => console.log("Servidor rodando na porta 4000"));
