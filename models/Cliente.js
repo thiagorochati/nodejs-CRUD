@@ -19,6 +19,6 @@ const Cliente = connection.define("Cliente", {
 });
 
 Cliente.sync({ force: false })
-  .then(() => console.log("Tabela CLIENTES ok"));
+  .then(() => console.log("Tabela CLIENTE ok"));
 
 module.exports = Cliente;

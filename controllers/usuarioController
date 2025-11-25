@@ -38,3 +38,44 @@ exports.delete = async (req, res) => {
   await Usuario.destroy({ where: { id: req.params.id } });
   res.redirect("/usuarios");
 };
+
+//********************************************************************************** */
+//Controle dos logins
+//********************************************************************************** */
+
+// Tela de login
+exports.loginForm = (req, res) => {
+  res.render("usuario/login"); 
+};
+
+// Autenticar login
+exports.login = async (req, res) => {
+  const { email, senha } = req.body;
+  const usuario = await Usuario.findOne({ where: { email } });
+
+  if (!usuario) {
+    req.flash("error_msg", "Usuário não encontrado!");
+    return res.redirect("/login");
+  }
+
+  if (usuario.senha !== senha) {
+    req.flash("error_msg", "Senha incorreta!");
+    return res.redirect("/login");
+  }
+
+  req.session.usuario = {
+    id: usuario.id,
+    nome: usuario.nome,
+    email: usuario.email
+  };
+
+  req.flash("success_msg", "Login realizado com sucesso!");
+  res.redirect("/");
+};
+
+// Logout
+exports.logout = (req, res) => {
+  req.session.destroy(() => {
+    res.redirect("/login");
+  });
+};
